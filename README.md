@@ -5,4 +5,4 @@
   - Summoner spells have to be selected manually.
   - Champion levels aren't a variable which makes timing Teleport kinda useless since its cooldown scales down with level.
 And I don't think it ever will because I'm not sure what Riots stance on timing Sums like this is.
-- Unsealed Spellbook won't be Supportet.
+- Unsealed Spellbook won't be Supported.
