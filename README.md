@@ -1,5 +1,5 @@
 # League of Legends Summoner Timer
-** A very basic website to time enemy Summoner spells. Test it here: [Click me](https://xtobishotz.github.io/LeagueofLegends-Summoner-Timer/)**
+**A very basic website to time enemy Summoner spells. Test it here: [Click me](https://xtobishotz.github.io/LeagueofLegends-Summoner-Timer/)**
 
 **This has been made without any interaction with the League API which means:**
   - Summoner spells have to be selected manually.
