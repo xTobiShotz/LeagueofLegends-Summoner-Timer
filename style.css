@@ -174,14 +174,14 @@ img {
 
 .tooltip .tooltiptext {
     background: url("assets/ui/ClientSummonerSelectHover.png");
-    background-size: cover;
+    background-size: 100% 100%;
     visibility: hidden;
     width: 80px;
     text-align: center;
-    padding-top: 9px;
-    padding-bottom: 1px;
+    padding-top: 5px;
+    padding-bottom: 2px;
     top: 90%;
-    left: -9%;
+    left: -15%;
     position: absolute;
     z-index: 1;
 }
