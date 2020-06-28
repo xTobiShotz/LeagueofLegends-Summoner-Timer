@@ -25,7 +25,7 @@ let activecache = 0;
 
 //  CHSKIP0
 //-------
-let dev = false;
+let dev = true;
 
 function skipselect() {
     lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
@@ -644,35 +644,54 @@ function startTimer() {
                         firstframe = firstframe < 10 ? "0" + firstframe : firstframe;
                         timer.textContent = firstframe;
                     }
-
-                    let loop = setInterval(() => {
-                        let seconds = time - 1;
-                        seconds =
-                            seconds < 10 ? "0" + Math.floor(seconds) : Math.floor(seconds);
-                        if (document.getElementById("cdtominsec").checked == true) {
-                            let minutes = Math.floor(seconds / 60);
-                            let schmeconds = seconds - minutes * 60;
-                            schmeconds >= 10 ?
-                                (schmeconds = schmeconds) :
-                                (schmeconds = "0" + schmeconds);
-                            minutes >= 10 ? (minutes = minutes) : (minutes = "0" + minutes);
-                            timer.textContent = minutes + ":" + schmeconds;
-                        } else {
-                            timer.textContent = seconds;
-                        }
-
-                        if (--time <= 0) {
-                            spell.classList.toggle("active");
-                            timer.textContent = "Up!";
-                            clearInterval(loop);
-                            spell.setAttribute("active", false);
-                            return;
-                        }
-                    }, 1000);
+                    let toggle = "on"
+                    startloop(time, timer, spell, x, toggle);
                     spell.setAttribute("active", true);
+                } else if (spell.getAttributeNode("active").nodeValue == "true") {
+                    let toggle = "off"
+                    startloop(time, timer, spell, x, toggle)
                 }
             });
     } else {
         return alert("Please start the game first!");
+    }
+}
+let looptimer;
+let myIntervals = {};
+
+function startloop(time, timer, spell, x, toggle) {
+    if (toggle == "on") {
+        looptimer = setInterval(timerloop, 1000);
+        myIntervals[x] = looptimer
+    } else if (toggle == "off") {
+        clearInterval(myIntervals[x]);
+        spell.classList.toggle("active");
+        timer.textContent = "Up!";
+        spell.setAttribute("active", false);
+    }
+
+    function timerloop() {
+        let seconds = time - 1;
+        seconds =
+            seconds < 10 ? "0" + Math.floor(seconds) : Math.floor(seconds);
+        if (document.getElementById("cdtominsec").checked == true) {
+            let minutes = Math.floor(seconds / 60);
+            let schmeconds = seconds - minutes * 60;
+            schmeconds >= 10 ?
+                (schmeconds = schmeconds) :
+                (schmeconds = "0" + schmeconds);
+            minutes >= 10 ? (minutes = minutes) : (minutes = "0" + minutes);
+            timer.textContent = minutes + ":" + schmeconds;
+        } else {
+            timer.textContent = seconds;
+        }
+
+        if (--time <= 0) {
+            spell.classList.toggle("active");
+            timer.textContent = "Up!";
+            clearInterval(myIntervals[x]);
+            spell.setAttribute("active", false);
+            return;
+        }
     }
 }
