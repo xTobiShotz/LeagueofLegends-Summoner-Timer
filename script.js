@@ -1,12 +1,40 @@
+//  CHSKIP0 - mostly used for dev options
+//  CHSKIP1 - Cookies functions
+//  CHSKIP2 - window.onload function
+//  CHSKIP3 - toggle spells on and off and checks if selected < 2
+//  CHSKIP4 - submit active spells and change to next with innerHTML then builds the site with the selected
+//  CHSKIP5 - get the new html and sets events on classes and ids
+//  CHSKIP6 - get lane function
+//  CHSKIP7 - setting function and cookie add
+//  CHSKIP8 - toggles the cds reduction
+//  CHSKIP9 - get the cooldown of spells (only flash at the moment)
+//  CHSKIP10 - starttimer controller
+
 let oldactives = [];
 let lanesubmit = [];
 let newhtml;
 let i1 = 0;
 let i2 = 0;
-let dev = false;
 let skip = false;
 let domain = location.host + location.pathname;
+let cdr;
+let newcdr;
+let value;
+let gametime;
+let activecache = 0;
 
+//  CHSKIP0
+//-------
+let dev = false;
+
+function skipselect() {
+    lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+    skip = true;
+    submit(lanesubmit);
+}
+
+//  CHSKIP1
+//-------
 function createCookie(key, value, date) {
     let expiration = new Date(date).toUTCString();
     let cookie =
@@ -54,24 +82,22 @@ function readcookies() {
     return arr;
 }
 
+//  CHSKIP2
+//-------
 window.onload = function () {
     checkifcookieispresent();
-    document
-        .querySelectorAll(".spellselect")
-        .forEach(img => img.addEventListener("click", toggle, false));
-    document
-        .getElementsByClassName("submit")[0]
-        .addEventListener("click", submit, false);
+    document.querySelectorAll(".spellselect").forEach(img => img.addEventListener("click", toggle, false));
+    document.getElementsByClassName("submit")[0].addEventListener("click", submit, false);
     if (dev == true) {
         $(
             '<input type="image" class="skip" id="skip" src="assets/ui/Skip.png">'
         ).insertAfter(".submit");
-        document
-            .getElementsByClassName("skip")[0]
-            .addEventListener("click", skipselect, false);
+        document.getElementsByClassName("skip")[0].addEventListener("click", skipselect, false);
     }
 };
 
+//  CHSKIP3
+//-------
 function toggle() {
     function checkactives(a1) {
         let activesnmb = 0;
@@ -129,12 +155,8 @@ function toggle() {
     }
 }
 
-function skipselect() {
-    lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
-    skip = true;
-    submit(lanesubmit);
-}
-
+//  CHSKIP4
+//-------
 async function submit(g2) {
     if (skip == false || skip == undefined) {
         if (oldactives.length != 2) {
@@ -158,49 +180,33 @@ async function submit(g2) {
         case 2:
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Jungle_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Jungle';
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[0]].classList.toggle("active");
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[1]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[1]].classList.toggle("active");
             oldactives = [];
             break;
         case 4:
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Middle_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Midlane';
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[0]].classList.toggle("active");
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[1]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[1]].classList.toggle("active");
             oldactives = [];
             break;
         case 6:
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Bottom_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Botlane';
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[0]].classList.toggle("active");
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[1]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[1]].classList.toggle("active");
             oldactives = [];
             break;
         case 8:
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Support_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Support';
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[0]].classList.toggle("active");
-            document
-                .getElementsByClassName("spellselect")
-            [oldactives[1]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
+            document.getElementsByClassName("spellselect")[oldactives[1]].classList.toggle("active");
             oldactives = [];
             break;
         case 10:
-            var json = fetch("summoners.json")
+            let json = fetch("summoners.json")
                 .then(response => response.json())
                 .then(json => {
                     function buildhtml(num, check) {
@@ -333,6 +339,7 @@ async function submit(g2) {
                     }
 
                     let start = '<div class="main">';
+
                     function settingspop() {
                         let A1 =
                             '<input type="image" class="settings" id="settings" href="#test-popup" src="assets/ui/LeagueClientRoundSettings.png"><div id="test-popup" class="white-popup mfp-hide"<h1>Settings</h1><fieldset style="border:0;">';
@@ -382,18 +389,14 @@ async function submit(g2) {
     }
 }
 
+//  CHSKIP5
+//-------
 async function loadandbug(kys) {
     await kys;
-    document
-        .querySelectorAll(".spell")
-        .forEach(btn => btn.addEventListener("click", startTimer, false));
+    document.querySelectorAll(".spell").forEach(btn => btn.addEventListener("click", startTimer, false));
     document.getElementById("gametimer").innerHTML = "00:00";
-    document
-        .getElementsByClassName("starttimer")[0]
-        .addEventListener("click", startgame, false);
-    document
-        .getElementsByClassName("copycds")[0]
-        .addEventListener("click", getcdstocopy, false);
+    document.getElementsByClassName("starttimer")[0].addEventListener("click", startgame, false);
+    document.getElementsByClassName("copycds")[0].addEventListener("click", getcdstocopy, false);
     document.getElementById("copyfield").readOnly = true;
     document.getElementById("copyfield").onclick = function () {
         this.select();
@@ -405,9 +408,7 @@ async function loadandbug(kys) {
         callbacks: {
             open: function () {
                 document.getElementsByClassName("mfp-close")[0].innerText = "";
-                document
-                    .getElementsByClassName("mfp-close")[0]
-                    .classList.add("closebuttonpop");
+                document.getElementsByClassName("mfp-close")[0].classList.add("closebuttonpop");
             },
             close: function () {
                 changesettings();
@@ -416,17 +417,15 @@ async function loadandbug(kys) {
     });
 }
 
-let cdr;
-let newcdr;
-let value;
-let gametime;
-let activecache = 0;
-
+//  CHSKIP6
+//-------
 function getLane(wanted) {
     let sel = "#" + `${wanted}`;
     return document.querySelector(sel);
 }
 
+//  CHSKIP7
+//-------
 async function changesettings() {
     if (document.getElementById("texttoicons").checked == true) {
         document.getElementById("top").children[0].innerHTML =
@@ -441,7 +440,7 @@ async function changesettings() {
             '<img src="assets/laneicons/Support_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>';
         let check = readcookies();
         check[0] = "true";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     } else if (document.getElementById("texttoicons").checked == false) {
         document.getElementById("top").children[0].innerHTML = "Toplane";
         document.getElementById("jungle").children[0].innerHTML = "Jungle";
@@ -450,26 +449,26 @@ async function changesettings() {
         document.getElementById("support").children[0].innerHTML = "Support";
         let check = readcookies();
         check[0] = "false";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     }
 
     if (document.getElementById("onlyactivecds").checked == true) {
         let check = readcookies();
         check[2] = "true";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     } else {
         let check = readcookies();
         check[2] = "false";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     }
     if (document.getElementById("cdtominsec").checked == true) {
         let check = readcookies();
         check[1] = "true";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     } else {
         let check = readcookies();
         check[1] = "false";
-        await createCookie(domain, check, Date.UTC(newcookiedate()));
+        createCookie(domain, check, Date.UTC(newcookiedate()));
     }
 }
 
@@ -484,6 +483,7 @@ function startgame() {
         activecache = 1;
     }
     setTimeout(step, interval);
+
     function step() {
         let dt = Date.now() - expected;
         if (dt > interval) {
@@ -505,6 +505,8 @@ function startgame() {
     }
 }
 
+//  CHSKIP8
+//-------
 function getcdstocopy() {
     let copyarr = [];
     if (document.getElementsByClassName("flash").length != 0) {
@@ -549,8 +551,7 @@ function getcdstocopy() {
                         )
                     );
                 } else {
-                    if (document.getElementById("onlyactivecds").checked == true) {
-                    } else {
+                    if (document.getElementById("onlyactivecds").checked == true) {} else {
                         copyarr.push(lanes + ": " + timercaches.innerHTML);
                     }
                 }
@@ -572,6 +573,8 @@ function getcdstocopy() {
     }
 }
 
+//  CHSKIP9
+//-------
 function cdrToggle(ver, lane) {
     let boots = getLane(lane).getElementsByClassName("boots")[0];
     let mastery = getLane(lane).getElementsByClassName("mastery")[0];
@@ -608,18 +611,18 @@ function cdrToggle(ver, lane) {
     }
 }
 
+//  CHSKIP10
+//-------
 function startTimer() {
     if (activecache == 1) {
-        var json1 = fetch("./summoners.json")
+        let json1 = fetch("./summoners.json")
             .then(response => response.json())
             .then(json1 => {
                 let x = this.id;
                 let timer = document.getElementsByClassName("timer")[x];
                 let spell = document.getElementsByClassName("spell")[x];
                 let cdrval = Number(
-                    getLane(document.querySelectorAll(".spell")[x].classList[2])
-                        .getElementsByClassName("cdr")[0]
-                        .getAttributeNode("value").nodeValue
+                    getLane(document.querySelectorAll(".spell")[x].classList[2]).getElementsByClassName("cdr")[0].getAttributeNode("value").nodeValue
                 );
                 let spellinfo = json1.spells.find(
                     record => record.name === spell.classList[1]
@@ -649,9 +652,9 @@ function startTimer() {
                         if (document.getElementById("cdtominsec").checked == true) {
                             let minutes = Math.floor(seconds / 60);
                             let schmeconds = seconds - minutes * 60;
-                            schmeconds >= 10
-                                ? (schmeconds = schmeconds)
-                                : (schmeconds = "0" + schmeconds);
+                            schmeconds >= 10 ?
+                                (schmeconds = schmeconds) :
+                                (schmeconds = "0" + schmeconds);
                             minutes >= 10 ? (minutes = minutes) : (minutes = "0" + minutes);
                             timer.textContent = minutes + ":" + schmeconds;
                         } else {
