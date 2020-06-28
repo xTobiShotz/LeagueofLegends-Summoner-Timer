@@ -25,7 +25,7 @@ let activecache = 0;
 
 //  CHSKIP0
 //-------
-let dev = true;
+let dev = false;
 
 function skipselect() {
     lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
