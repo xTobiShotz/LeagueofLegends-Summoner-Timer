@@ -1,0 +1,59 @@
+{
+    "spells": [
+        {
+            "name": "flash",
+            "cd": "300",
+            "url": "assets/summoners/Flash.png"
+        },
+        {
+            "name": "ignite",
+            "cd": "180",
+            "url": "assets/summoners/Ignite.png"
+        },
+        {
+            "name": "barrier",
+            "cd": "180",
+            "url": "assets/summoners/Barrier.png"
+        },
+        {
+            "name": "exhaust",
+            "cd": "210",
+            "url": "assets/summoners/Exhaust.png"
+        },
+        {
+            "name": "cleanse",
+            "cd": "210",
+            "url": "assets/summoners/Cleanse.png"
+        },
+        {
+            "name": "ghost",
+            "cd": "210",
+            "url": "assets/summoners/Ghost.png"
+        },
+        {
+            "name": "heal",
+            "cd": "240",
+            "url": "assets/summoners/Heal.png"
+        },
+        {
+            "name": "teleport",
+            "cd": "420",
+            "url": "assets/summoners/Teleport.png"
+        },
+        {
+            "name": "smite",
+            "cd": "90",
+            "url": "assets/summoners/Smite.png"
+        }
+    ],
+    "misc": [
+        {
+            "name": "mastery",
+            "url": "assets/cdr/CosmicInsight.png"
+        },
+        {
+            "name": "mastery",
+            "url": "assets/cdr/Ionian-Boots.png"
+        }
+    ]
+}

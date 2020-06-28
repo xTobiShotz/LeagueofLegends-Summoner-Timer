@@ -1,0 +1,281 @@
+@font-face {
+    font-family: BeaufortforLOL;
+    src: url(assets/font/beaufortforlol-medium.otf);
+}
+
+body {
+    font-family: "BeaufortforLOL", sans-serif;
+    text-transform: uppercase;
+    color: #cdbe91;
+    background-image: url("assets/ui/LeagueClientBG.png");
+    background-size: cover;
+}
+
+.heading h1 {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: inherit;
+}
+
+h1 {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 124px;
+    min-height: 50px;
+}
+
+p {
+    margin: 0px;
+    margin-bottom: 4px;
+}
+
+span {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+img {
+    display: inline-block;
+}
+
+.main {
+    display: block;
+    text-align: center;
+}
+
+.cdr img {
+    padding: 4px;
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    background: url(assets/ui/LeagueClientUnselected.png);
+    background-size: cover;
+    filter: saturate(0%) !important;
+}
+
+.cdr img:hover {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(25%) !important;
+}
+
+.cdr img.active {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(100%) !important;
+}
+
+.sums img {
+    padding: 4px;
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    background: url(assets/ui/LeagueClientUnselected.png);
+    background-size: cover;
+    filter: saturate(0%) !important;
+}
+
+.sums img:hover {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(25%) !important;
+}
+
+.sums img.active {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(100%) !important;
+}
+
+.copycds {
+    opacity: 0.80;
+}
+
+.copycds:hover {
+    opacity: 1;
+}
+
+.main div {
+    display: inline-block;
+    text-align: center;
+}
+
+.main div#top {
+    padding: 10px;
+    min-width: 140px;
+}
+
+.main div#bot {
+    padding: 10px;
+    min-width: 140px;
+}
+
+.main div#mid {
+    padding: 10px;
+    min-width: 140px;
+}
+
+.main div#support {
+    padding: 10px;
+    min-width: 140px;
+}
+
+.main div#jungle {
+    padding: 10px;
+    min-width: 140px;
+}
+
+.main2 {
+    text-align: center;
+    margin-top: 0%;
+}
+
+.spellselect {
+    padding: 4px;
+    border-width: 0px;
+    margin: 1px;
+    filter: saturate(0%) !important;
+}
+
+.spellselect {
+    background: url(assets/ui/LeagueClientUnselected.png);
+    background-size: cover;
+}
+
+.spellselect:hover {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(25%) !important;
+}
+
+.spellselect.active {
+    background: url(assets/ui/LeagueClientSelected.png);
+    background-size: cover;
+    filter: saturate(100%) !important;
+}
+
+.submit {
+    margin-top: 30px;
+    opacity: 0.80;
+}
+
+.submit:hover {
+    opacity: 1;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    background: url("assets/ui/ClientSummonerSelectHover.png");
+    background-size: cover;
+    visibility: hidden;
+    width: 80px;
+    text-align: center;
+    padding-top: 9px;
+    padding-bottom: 1px;
+    top: 90%;
+    left: -9%;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+input#copyfield {
+    margin-left: 5px;
+    margin-top: 5px;
+    background: url(assets/ui/LeagueClientTimer.png) no-repeat scroll 2px 2px;
+    color: #cdbe91;
+    border: 1px solid white;
+    border-image: linear-gradient(to bottom, #C8A96C, #7C5F2A);
+    border-image-slice: 1;
+    padding-left: 23px;
+    height: 20px;
+    transform: translateY(-9px);
+}
+
+.starttimer {
+    opacity: 0.80;
+}
+
+.starttimer:hover {
+    opacity: 1;
+}
+
+.starttimer.pressed {
+    transition: opacity 0.2s linear;
+    opacity: 0;
+    display: none;
+}
+
+p#gametimer {
+    font-size: xx-large;
+}
+
+.settings {
+    height: 30px;
+    width: 30px;
+    display: block;
+    opacity: 0.80;
+}
+
+.settings:hover {
+    opacity: 1;
+}
+
+.white-popup {
+    position: relative;
+    background-image: url("assets/ui/LeagueClientBG.png");
+    background-size: cover;
+    padding: 20px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.check_box {
+    display: none;
+}
+
+.check_box+label {
+    background: url('assets/ui/LeagueClientBoxUnchecked.png') no-repeat;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    transform: translate(-5px, 2px)
+}
+
+.check_box:checked+label {
+    background: url('assets/ui/LeagueCLientBoxChecked.png') no-repeat;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    transform: translate(-5px, 2px)
+}
+
+.mfp-close-btn-in .mfp-close {
+    background-image: url(assets/ui/LeagueClientRoundX.png);
+    background-size: cover;
+}
+
+.closebuttonpop {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.startdiv {
+    height: 0px;
+}
+
+br {
+    margin: 0px 0px;
+}
