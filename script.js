@@ -174,6 +174,7 @@ async function submit(g2) {
     }
     switch (lanesubmit.length) {
         case 2:
+            document.getElementById("skip").remove();
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Jungle_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Jungle';
             document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
