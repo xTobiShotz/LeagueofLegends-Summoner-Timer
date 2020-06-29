@@ -48,12 +48,12 @@
     ],
     "misc": [
         {
-            "name": "mastery",
-            "url": "assets/cdr/CosmicInsight.png"
+            "name": "boots",
+            "url": "assets/cdr/Ionian-Boots.png"
         },
         {
             "name": "mastery",
-            "url": "assets/cdr/Ionian-Boots.png"
+            "url": "assets/cdr/CosmicInsight.png"
         }
     ]
 }
