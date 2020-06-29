@@ -374,7 +374,7 @@ async function submit(g2) {
                         '<div id="spells-popup" class="white-popup mfp-hide"<h1>Select Spell</h1><fieldset style="border:0;"><img src="' + json.spells[0].url + '"draggable="false" id="us0" class="us0 ' + json.spells[0].name + '"/><img src="' + json.spells[1].url + '"draggable="false" id="us1" class="us0 ' + json.spells[1].name + '"/><img src="' + json.spells[2].url + '"draggable="false" id="us2" class="us0 ' + json.spells[2].name + '"/><img src="' + json.spells[3].url + '"draggable="false" id="us3" class="us0 ' + json.spells[3].name + '"/><img src="' + json.spells[4].url + '"draggable="false" id="us4" class="us0 ' + json.spells[4].name + '"/><img src="' + json.spells[5].url + '"draggable="false" id="us5" class="us0 ' + json.spells[5].name + '"/><img src="' + json.spells[6].url + '"draggable="false" id="us6" class="us0 ' + json.spells[6].name + '"/><img src="' + json.spells[7].url + '"draggable="false" id="us7" class="us0 ' + json.spells[7].name + '"/><img src="' + json.spells[8].url + '"draggable="false" id="us8" class="us0 ' + json.spells[8].name + '"/></div>'
                     let mids = '<div class="lanecont">'
                     let end =
-                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div><br><div class="startdiv"><input type="image" class="resetsite" id="resetsite" src="assests/ui/LeagueClientButtonReset.png"></div></div>';
+                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div><br><div class="startdiv"><input type="image" class="resetsite" id="resetsite" src="assets/ui/LeagueClientButtonReset.png"></div></div>';
 
                     newhtml =
                         start +
@@ -387,7 +387,7 @@ async function submit(g2) {
                         buildhtml(3, check) +
                         buildhtml(4, check) +
                         end;
-                        resetsave = newhtml;
+                    resetsave = newhtml;
                     loadandbug((document.body.innerHTML = newhtml));
                 });
             break;
@@ -581,7 +581,7 @@ function startgame(r1) {
     $(".spell").unbind();
     document.getElementsByClassName("starttimer")[0].classList.add("pressed");
     document.querySelectorAll(".spell").forEach(btn => btn.addEventListener("click", startTimer, false));
-    
+
     let interval = 1000;
     let expected = Date.now() + interval;
     let start = Date.now();

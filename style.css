@@ -189,6 +189,15 @@ img {
     opacity: 1;
 }
 
+skip {
+    margin-top: 30px;
+    opacity: 0.80;
+}
+
+skip:hover {
+    opacity: 1;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;
