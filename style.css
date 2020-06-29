@@ -189,8 +189,15 @@ img {
     opacity: 1;
 }
 
+.resetsite {
+    opacity: 0.80;
+}
+
+.resetsite:hover {
+    opacity: 1;
+}
+
 .skip {
-    margin-top: 30px;
     opacity: 0.80;
 }
 
