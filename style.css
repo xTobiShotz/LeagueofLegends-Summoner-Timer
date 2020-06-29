@@ -189,12 +189,12 @@ img {
     opacity: 1;
 }
 
-skip {
+.skip {
     margin-top: 30px;
     opacity: 0.80;
 }
 
-skip:hover {
+.skip:hover {
     opacity: 1;
 }
 
