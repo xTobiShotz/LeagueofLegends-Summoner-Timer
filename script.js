@@ -27,10 +27,10 @@ let pepo = 0;
 
 //  CHSKIP0
 //-------
-let dev = true;
+//let dev = false;
 
-function skipselect() {
-    lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+function defaultspells() {
+    lanesubmit = [0, 7, 0, 8, 0, 1, 0, 6, 0, 1];
     skip = true;
     submit(lanesubmit);
 }
@@ -90,12 +90,10 @@ window.onload = function () {
     checkifcookieispresent();
     document.querySelectorAll(".spellselect").forEach(img => img.addEventListener("click", toggle, false));
     document.getElementsByClassName("submit")[0].addEventListener("click", submit, false);
-    if (dev == true) {
-        $(
-            '<input type="image" class="skip" id="skip" src="assets/ui/Skip.png">'
-        ).insertAfter(".submit");
-        document.getElementsByClassName("skip")[0].addEventListener("click", skipselect, false);
-    }
+    $(
+        '<br><input type="image" class="skip" id="skip" src="assets/ui/Skip.png">'
+    ).insertAfter(".submit");
+    document.getElementsByClassName("skip")[0].addEventListener("click", defaultspells, false);
 };
 
 //  CHSKIP3
@@ -370,7 +368,7 @@ async function submit(g2) {
                     }
 
                     let uniqueselect =
-                        '<div id="spells-popup" class="white-popup mfp-hide"<h1>Select Spell</h1><fieldset style="border:0;"><img src="' + json.spells[0].url + '"draggable="false" id="us0" class="us0"/><img src="' + json.spells[1].url + '"draggable="false" id="us1" class="us0"/><img src="' + json.spells[2].url + '"draggable="false" id="us2" class="us0"/><img src="' + json.spells[3].url + '"draggable="false" id="us3" class="us0"/><img src="' + json.spells[4].url + '"draggable="false" id="us4" class="us0"/><img src="' + json.spells[5].url + '"draggable="false" id="us5" class="us0"/><img src="' + json.spells[6].url + '"draggable="false" id="us6" class="us0"/><img src="' + json.spells[7].url + '"draggable="false" id="us7" class="us0"/><img src="' + json.spells[8].url + '"draggable="false" id="us8" class="us0"/></div>'
+                        '<div id="spells-popup" class="white-popup mfp-hide"<h1>Select Spell</h1><fieldset style="border:0;"><img src="' + json.spells[0].url + '"draggable="false" id="us0" class="us0 ' + json.spells[0].name + '"/><img src="' + json.spells[1].url + '"draggable="false" id="us1" class="us0 ' + json.spells[1].name + '"/><img src="' + json.spells[2].url + '"draggable="false" id="us2" class="us0 ' + json.spells[2].name + '"/><img src="' + json.spells[3].url + '"draggable="false" id="us3" class="us0 ' + json.spells[3].name + '"/><img src="' + json.spells[4].url + '"draggable="false" id="us4" class="us0 ' + json.spells[4].name + '"/><img src="' + json.spells[5].url + '"draggable="false" id="us5" class="us0 ' + json.spells[5].name + '"/><img src="' + json.spells[6].url + '"draggable="false" id="us6" class="us0 ' + json.spells[6].name + '"/><img src="' + json.spells[7].url + '"draggable="false" id="us7" class="us0 ' + json.spells[7].name + '"/><img src="' + json.spells[8].url + '"draggable="false" id="us8" class="us0 ' + json.spells[8].name + '"/></div>'
                     let mids = '<div class="lanecont">'
                     let end =
                         '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div></div>';
@@ -428,8 +426,9 @@ async function loadandbug(kys) {
                 document.getElementsByClassName("mfp-close")[0].innerText = "";
                 document.getElementsByClassName("mfp-close")[0].classList.add("closebuttonpop");
                 if (pepo == 0) {
-                document.querySelectorAll(".us0").forEach(btn => btn.addEventListener("click", setactive, false));
+                    document.querySelectorAll(".us0").forEach(btn => btn.addEventListener("click", setactive, false));
                 }
+
                 function setactive() {
                     function checkactives(a1) {
                         let activesnmb = 0;
@@ -468,23 +467,52 @@ async function loadandbug(kys) {
             close: function () {
                 pepo = 1
                 if (checkactivesarr.length != 0) {
-                let newspell = document.getElementsByClassName("us0")[checkactivesarr[0]];
-                let oldspellthing = document.getElementsByClassName("spell")[identifrier].classList[2]
-                id = newspell.id
-                str = id.replace("us", "")
-                let json2 = fetch("summoners.json")
-                .then(response => response.json())
-                .then(json2 => {
-                    document.getElementsByClassName("spell")[identifrier].src = json2.spells[str].url
-                    document.getElementsByClassName("spell")[identifrier].id = identifrier
-                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(1), json2.spells[str].name);
-                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(2), oldspellthing);
-                    newspell.classList.toggle("active")
-                    checkactivesarr.shift();
-            })
+                    let newspell = document.getElementsByClassName("us0")[checkactivesarr[0]];
+                    let oldspellthing = document.getElementsByClassName("spell")[identifrier].classList[2]
+                    id = newspell.id
+                    str = id.replace("us", "")
+                    let json2 = fetch("summoners.json")
+                        .then(response => response.json())
+                        .then(json2 => {
+                            function checksameids() {
+                                let a1 = document.getElementsByClassName("spell")[identifrier]
+                                let a2 = newspell
+                                let a3;
+                                if (a1.previousElementSibling != null) {
+                                    a3 = a1.previousElementSibling
+                                } else if (a1.nextElementSibling != null) {
+                                    a3 = a1.nextElementSibling
+                                }
+
+                                if (a1.classList[1] == a2.classList[1] && a3.classList[1] != a2.classList[1]) {
+                                    document.getElementsByClassName("spell")[identifrier].src = json2.spells[str].url
+                                    document.getElementsByClassName("spell")[identifrier].id = identifrier
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(1), json2.spells[str].name);
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(2), oldspellthing);
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                }
+
+                                if (a1.classList[1] != a2.classList[1] && a3.classList[1] != a2.classList[1]) {
+                                    document.getElementsByClassName("spell")[identifrier].src = json2.spells[str].url
+                                    document.getElementsByClassName("spell")[identifrier].id = identifrier
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(1), json2.spells[str].name);
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(2), oldspellthing);
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                }
+
+                                if (a1.classList[1] != a2.classList[1] && a2.classList[1] == a3.classList[1]) {
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                    return alert("You cant assigne the same spell twice.")
+                                }
+                            }
+                            checksameids()
+                        })
+                }
             }
         }
-    }
     });
 }
 
