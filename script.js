@@ -11,6 +11,7 @@
 //  CHSKIP10 - starttimer controller
 
 let oldactives = [];
+let checkactivesarr = [];
 let lanesubmit = [];
 let newhtml;
 let i1 = 0;
@@ -22,13 +23,16 @@ let newcdr;
 let value;
 let gametime;
 let activecache = 0;
+let pepo = 0;
+let resetsave;
+let reset;
 
 //  CHSKIP0
 //-------
-let dev = false;
+//let dev = false;
 
-function skipselect() {
-    lanesubmit = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+function defaultspells() {
+    lanesubmit = [0, 7, 0, 8, 0, 1, 0, 6, 0, 1];
     skip = true;
     submit(lanesubmit);
 }
@@ -88,12 +92,10 @@ window.onload = function () {
     checkifcookieispresent();
     document.querySelectorAll(".spellselect").forEach(img => img.addEventListener("click", toggle, false));
     document.getElementsByClassName("submit")[0].addEventListener("click", submit, false);
-    if (dev == true) {
-        $(
-            '<input type="image" class="skip" id="skip" src="assets/ui/Skip.png">'
-        ).insertAfter(".submit");
-        document.getElementsByClassName("skip")[0].addEventListener("click", skipselect, false);
-    }
+    $(
+        '<br><input type="image" class="skip" id="skip" src="assets/ui/LeagueClientButtonDefault.png">'
+    ).insertAfter(".submit");
+    document.getElementsByClassName("skip")[0].addEventListener("click", defaultspells, false);
 };
 
 //  CHSKIP3
@@ -112,11 +114,7 @@ function toggle() {
         return activesnmb;
     }
 
-    if (
-        checkactives(
-            document.getElementById("selectionimgs").querySelectorAll(".spellselect")
-        ) < 2
-    ) {
+    if (checkactives(document.getElementById("selectionimgs").querySelectorAll(".spellselect")) < 2) {
         if (oldactives[0] != this.id) {
             this.classList.toggle("active");
             oldactives.push(this.id);
@@ -178,6 +176,7 @@ async function submit(g2) {
     }
     switch (lanesubmit.length) {
         case 2:
+            document.getElementById("skip").remove();
             document.getElementById("heading").children[0].innerHTML =
                 '<img src="assets/laneicons/Jungle_icon.png" draggable="false" class="laneicon" id="s0" width="50" height="50"/>Jungle';
             document.getElementsByClassName("spellselect")[oldactives[0]].classList.toggle("active");
@@ -294,7 +293,7 @@ async function submit(g2) {
                             json.spells[lanesubmit[D1]].name +
                             " " +
                             B1 +
-                            '" active="false"/><img src="' +
+                            '" active="false" href="#spells-popup"/><img src="' +
                             json.spells[lanesubmit[D2]].url +
                             '"draggable="false" id="' +
                             C2 +
@@ -302,7 +301,7 @@ async function submit(g2) {
                             json.spells[lanesubmit[D2]].name +
                             " " +
                             B1 +
-                            '" active="false"/></div>';
+                            '" active="false" href="#spells-popup"/></div>';
                         let H3 =
                             '<p id="' +
                             B1 +
@@ -367,22 +366,28 @@ async function submit(g2) {
                             A4 =
                                 '<p><input type="checkbox" id="onlyactivecds" class="check_box"><label for="onlyactivecds"></label><label for="name">Only Copy Flashes on Cooldown</label></p>';
                         }
-                        let A5 = '</div><div class="lanecont">';
+                        let A5 = '</div>';
                         return A1 + A2 + A3 + A4 + A5;
                     }
 
+                    let uniqueselect =
+                        '<div id="spells-popup" class="white-popup mfp-hide"<h1>Select Spell</h1><fieldset style="border:0;"><img src="' + json.spells[0].url + '"draggable="false" id="us0" class="us0 ' + json.spells[0].name + '"/><img src="' + json.spells[1].url + '"draggable="false" id="us1" class="us0 ' + json.spells[1].name + '"/><img src="' + json.spells[2].url + '"draggable="false" id="us2" class="us0 ' + json.spells[2].name + '"/><img src="' + json.spells[3].url + '"draggable="false" id="us3" class="us0 ' + json.spells[3].name + '"/><img src="' + json.spells[4].url + '"draggable="false" id="us4" class="us0 ' + json.spells[4].name + '"/><img src="' + json.spells[5].url + '"draggable="false" id="us5" class="us0 ' + json.spells[5].name + '"/><img src="' + json.spells[6].url + '"draggable="false" id="us6" class="us0 ' + json.spells[6].name + '"/><img src="' + json.spells[7].url + '"draggable="false" id="us7" class="us0 ' + json.spells[7].name + '"/><img src="' + json.spells[8].url + '"draggable="false" id="us8" class="us0 ' + json.spells[8].name + '"/></div>'
+                    let mids = '<div class="lanecont">'
                     let end =
-                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div></div>';
+                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div><br><div class="startdiv"><input type="image" class="resetsite" id="resetsite" src="assets/ui/LeagueClientButtonReset.png"></div></div>';
 
                     newhtml =
                         start +
                         settingspop() +
+                        uniqueselect +
+                        mids +
                         buildhtml(0, check) +
                         buildhtml(1, check) +
                         buildhtml(2, check) +
                         buildhtml(3, check) +
                         buildhtml(4, check) +
                         end;
+                    resetsave = newhtml;
                     loadandbug((document.body.innerHTML = newhtml));
                 });
             break;
@@ -393,10 +398,10 @@ async function submit(g2) {
 //-------
 async function loadandbug(kys) {
     await kys;
-    document.querySelectorAll(".spell").forEach(btn => btn.addEventListener("click", startTimer, false));
     document.getElementById("gametimer").innerHTML = "00:00";
     document.getElementsByClassName("starttimer")[0].addEventListener("click", startgame, false);
     document.getElementsByClassName("copycds")[0].addEventListener("click", getcdstocopy, false);
+    document.getElementsByClassName("resetsite")[0].addEventListener("click", resetsite, false);
     document.getElementById("copyfield").readOnly = true;
     document.getElementById("copyfield").onclick = function () {
         this.select();
@@ -412,6 +417,105 @@ async function loadandbug(kys) {
             },
             close: function () {
                 changesettings();
+            }
+        }
+    });
+    let identifrier;
+
+    $(".spell").magnificPopup({
+        type: "inline",
+        midClick: true,
+        callbacks: {
+            open: function () {
+                identifrier = this.index
+                document.getElementsByClassName("mfp-close")[0].innerText = "";
+                document.getElementsByClassName("mfp-close")[0].classList.add("closebuttonpop");
+                if (pepo == 0) {
+                    document.querySelectorAll(".us0").forEach(btn => btn.addEventListener("click", setactive, false));
+                }
+
+                function setactive() {
+                    function checkactives(a1) {
+                        let activesnmb = 0;
+                        let searchfor = "active";
+                        for (let i = 0; i < a1.length; i++) {
+                            let selector = a1[i].classList;
+                            let actives = selector.contains(searchfor);
+                            if (actives == true) {
+                                activesnmb++;
+                            }
+                        }
+                        return activesnmb;
+                    }
+                    id = this.id
+                    str = id.replace("us", "")
+
+                    if (checkactives(document.querySelectorAll(".us0")) < 1) {
+                        if (checkactivesarr[0] != str) {
+                            this.classList.toggle("active");
+                            checkactivesarr.push(str);
+                        }
+                    } else {
+                        let getspells = document.getElementsByClassName("us0");
+                        if (checkactivesarr[0] == str) {
+                            getspells[checkactivesarr[0]].classList.toggle("active");
+                            checkactivesarr.shift();
+                        } else {
+                            getspells[checkactivesarr[0]].classList.toggle("active");
+                            getspells[str].classList.toggle("active");
+                            checkactivesarr.shift();
+                            checkactivesarr.push(str);
+                        }
+                    }
+                }
+            },
+            close: function () {
+                pepo = 1
+                if (checkactivesarr.length != 0) {
+                    let newspell = document.getElementsByClassName("us0")[checkactivesarr[0]];
+                    let oldspellthing = document.getElementsByClassName("spell")[identifrier].classList[2]
+                    id = newspell.id
+                    str = id.replace("us", "")
+                    let json2 = fetch("summoners.json")
+                        .then(response => response.json())
+                        .then(json2 => {
+                            function checksameids() {
+                                let a1 = document.getElementsByClassName("spell")[identifrier]
+                                let a2 = newspell
+                                let a3;
+                                if (a1.previousElementSibling != null) {
+                                    a3 = a1.previousElementSibling
+                                } else if (a1.nextElementSibling != null) {
+                                    a3 = a1.nextElementSibling
+                                }
+
+                                if (a1.classList[1] == a2.classList[1] && a3.classList[1] != a2.classList[1]) {
+                                    document.getElementsByClassName("spell")[identifrier].src = json2.spells[str].url
+                                    document.getElementsByClassName("spell")[identifrier].id = identifrier
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(1), json2.spells[str].name);
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(2), oldspellthing);
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                }
+
+                                if (a1.classList[1] != a2.classList[1] && a3.classList[1] != a2.classList[1]) {
+                                    document.getElementsByClassName("spell")[identifrier].src = json2.spells[str].url
+                                    document.getElementsByClassName("spell")[identifrier].id = identifrier
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(1), json2.spells[str].name);
+                                    document.getElementsByClassName("spell")[identifrier].classList.replace(document.getElementsByClassName("spell")[identifrier].classList.item(2), oldspellthing);
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                }
+
+                                if (a1.classList[1] != a2.classList[1] && a2.classList[1] == a3.classList[1]) {
+                                    newspell.classList.toggle("active")
+                                    checkactivesarr.shift();
+                                    return alert("You cant assigne the same spell twice.")
+                                }
+                            }
+                            checksameids()
+                        })
+                }
             }
         }
     });
@@ -471,9 +575,12 @@ async function changesettings() {
         createCookie(domain, check, Date.UTC(newcookiedate()));
     }
 }
+let starttimerloop;
 
-function startgame() {
+function startgame(r1) {
+    $(".spell").unbind();
     document.getElementsByClassName("starttimer")[0].classList.add("pressed");
+    document.querySelectorAll(".spell").forEach(btn => btn.addEventListener("click", startTimer, false));
 
     let interval = 1000;
     let expected = Date.now() + interval;
@@ -482,7 +589,14 @@ function startgame() {
         document.getElementById("gametimer").classList.toggle("active");
         activecache = 1;
     }
-    setTimeout(step, interval);
+
+    if (r1 == 1) {
+        clearTimeout(starttimerloop);
+        reset = 0;
+        return
+    }
+
+    starttimerloop = setTimeout(step, interval);
 
     function step() {
         let dt = Date.now() - expected;
@@ -501,7 +615,7 @@ function startgame() {
         let gametimestring = mins + ":" + secs;
         document.getElementById("gametimer").innerHTML = gametimestring;
         expected += interval;
-        setTimeout(step, Math.max(0, interval - dt));
+        starttimerloop = setTimeout(step, Math.max(0, interval - dt));
     }
 }
 
@@ -652,10 +766,9 @@ function startTimer() {
                     startloop(time, timer, spell, x, toggle)
                 }
             });
-    } else {
-        return alert("Please start the game first!");
-    }
+    } else {}
 }
+
 let looptimer;
 let myIntervals = {};
 
@@ -694,4 +807,11 @@ function startloop(time, timer, spell, x, toggle) {
             return;
         }
     }
+}
+
+function resetsite() {
+    pepo = 0
+    reset = 1;
+    startgame(reset)
+    loadandbug((document.body.innerHTML = resetsave));
 }
