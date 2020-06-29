@@ -93,7 +93,7 @@ window.onload = function () {
     document.querySelectorAll(".spellselect").forEach(img => img.addEventListener("click", toggle, false));
     document.getElementsByClassName("submit")[0].addEventListener("click", submit, false);
     $(
-        '<br><input type="image" class="skip" id="skip" src="assets/ui/Skip.png">'
+        '<br><input type="image" class="skip" id="skip" src="assets/ui/LeagueClientButtonDefault.png">'
     ).insertAfter(".submit");
     document.getElementsByClassName("skip")[0].addEventListener("click", defaultspells, false);
 };
@@ -374,7 +374,7 @@ async function submit(g2) {
                         '<div id="spells-popup" class="white-popup mfp-hide"<h1>Select Spell</h1><fieldset style="border:0;"><img src="' + json.spells[0].url + '"draggable="false" id="us0" class="us0 ' + json.spells[0].name + '"/><img src="' + json.spells[1].url + '"draggable="false" id="us1" class="us0 ' + json.spells[1].name + '"/><img src="' + json.spells[2].url + '"draggable="false" id="us2" class="us0 ' + json.spells[2].name + '"/><img src="' + json.spells[3].url + '"draggable="false" id="us3" class="us0 ' + json.spells[3].name + '"/><img src="' + json.spells[4].url + '"draggable="false" id="us4" class="us0 ' + json.spells[4].name + '"/><img src="' + json.spells[5].url + '"draggable="false" id="us5" class="us0 ' + json.spells[5].name + '"/><img src="' + json.spells[6].url + '"draggable="false" id="us6" class="us0 ' + json.spells[6].name + '"/><img src="' + json.spells[7].url + '"draggable="false" id="us7" class="us0 ' + json.spells[7].name + '"/><img src="' + json.spells[8].url + '"draggable="false" id="us8" class="us0 ' + json.spells[8].name + '"/></div>'
                     let mids = '<div class="lanecont">'
                     let end =
-                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div><br><div class="startdiv"><input type="image" class="resetsite" id="resetsite" src="https://i.imgur.com/NL3maQP.jpg"></div></div>';
+                        '<br><div class="startdiv"><input type="image" class="starttimer" id="starttimer" src="assets/ui/ClientStart.png"></div><p id="gametimer" class="gametimer"></p><br><input type="image" class="copycds" id="copycds" src="assets/ui/LeagueClientButton.png"><input type="text" id="copyfield" name="copyfield"></div><br><div class="startdiv"><input type="image" class="resetsite" id="resetsite" src="assests/ui/LeagueClientButtonReset.png"></div></div>';
 
                     newhtml =
                         start +
